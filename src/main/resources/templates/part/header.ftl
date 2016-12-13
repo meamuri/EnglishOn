@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <title>Language Service for DSR</title>
     <title>LSfD</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!--
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        -->
     <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="/assets/jquery/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>
-    -->
+
 </head>
 <body>
     <div class="container"><div class="row"><div class="col-xs-12 cols-md-12">
@@ -34,7 +34,6 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Главная <span class="sr-only">(current)</span></a></li>
                         <li><a href="#">Тренировка</a></li>
-                        <li><a href="#">Статистика</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">Словарь <span class="caret"></span></a>
@@ -42,7 +41,7 @@
                                 <li><a href="#">Пополнить словами из текста</a></li>
                                 <li><a href="#">Добавить пару слов</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Посмотреть словарь</a></li>
+                                <li><a href="#">Статистика</a></li>
                             </ul>
                         </li>
                     </ul>
