@@ -24,4 +24,9 @@ public class WordController {
         modelMap.addAttribute("words", list);
         return "word/index";
     }
+
+    @RequestMapping(value = "/add", method = GET)
+    public String getFormWhereUserCanAddWord(ModelMap modelMap){
+        return "word/addWord";
+    }
 }
