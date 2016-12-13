@@ -10,6 +10,6 @@ public interface WordRepository extends CrudRepository<Word, Long> {
 
     Word findBySpelling(String spelling);
 
-    @Query("SELECT w FROM Word w WHERE w.Spelling = ?1")
+    @Query("SELECT w FROM Word w WHERE spelling = ?1")
     Word findBySpellingHql(String spelling);
 }
