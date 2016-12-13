@@ -1,5 +1,6 @@
 package edu.jschool.enon.service;
 
+import edu.jschool.enon.data.dto.CreateWordDto;
 import edu.jschool.enon.entity.Word;
 import edu.jschool.enon.repository.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,13 @@ public class WordService {
         return stream(wordRepository.findAll().spliterator(), false).collect(toList());
     }
 
-//    @Transactional
-//    public Word save(){
-//
-//    }
+    @Transactional
+    public Word save(CreateWordDto word){
+        Word theWord = new Word();
+        theWord.setSpelling(word.getSpelling());
+        theWord.setValueInLanguage(word.getValueInLanguage());
+        return wordRepository.save(theWord);
+    }
 
     @Transactional
     public Word getOne(Long id){
@@ -41,6 +45,11 @@ public class WordService {
         return wordRepository.save(word);
     }
 
-//    @Transactional
-//    public Word update(Long id, )
+    @Transactional
+    public Word update(Long id, CreateWordDto word){
+        Word savedWord = wordRepository.findOne(id);
+        savedWord.setSpelling(word.getSpelling());
+        savedWord.setValueInLanguage(word.getValueInLanguage());
+        return wordRepository.save(savedWord);
+    }
 }
