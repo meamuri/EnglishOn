@@ -23,13 +23,13 @@ public class DbInitializer {
         wordRepository.save(word);
 
         Word word1 = new Word();
-        word.setSpelling("Meaning");
-        word.setValueInLanguage("Значение");
+        word1.setSpelling("Meaning");
+        word1.setValueInLanguage("Значение");
         wordRepository.save(word1);
 
         Word word2 = new Word();
-        word.setSpelling("Collection");
-        word.setValueInLanguage("Коллекция");
+        word2.setSpelling("Collection");
+        word2.setValueInLanguage("Коллекция");
         wordRepository.save(word2);
     }
 }
