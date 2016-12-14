@@ -53,4 +53,9 @@ public class WordController {
         modelMap.addAttribute("validationsErrors", errors);
         return "redirect:/add";
     }
+
+    @RequestMapping(value = "/addWithApi", method = GET)
+    public String getFormWhereUserCanAddOnlySpelling(ModelMap modelMap){
+        return "word/addWithApi";
+    }
 }
