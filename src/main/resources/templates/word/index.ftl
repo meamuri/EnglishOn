@@ -1,4 +1,6 @@
 <#include "/part/header.ftl">
+
+<script type="text/javascript" src="/assets/custom/index.js"></script>
 <table class="table table-striped">
     <tr>
         <th>Слово</th>
