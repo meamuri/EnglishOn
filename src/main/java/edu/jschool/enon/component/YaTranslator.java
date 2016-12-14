@@ -9,7 +9,6 @@ import java.net.URLEncoder;
 
 public class YaTranslator implements Translator{
 
-    @Override
     public String translate(String word, String lang) throws IOException {
         String myApiKey = "trnsl.1.1.20161213T111003Z.d2c95c028db21968.0080fbb13e75a7d0717cc63849ee848bd95421e9";
         String urlStr = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + myApiKey;

@@ -1,6 +1,5 @@
 package edu.jschool.enon.component;
 
-
 import java.io.IOException;
 
 public interface Translator {

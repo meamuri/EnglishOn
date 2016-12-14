@@ -1,6 +1,8 @@
 package edu.jschool.enon.controller;
 
+import edu.jschool.enon.component.YaTranslator;
 import edu.jschool.enon.data.dto.CreateWordDto;
+import edu.jschool.enon.data.dto.OnlySpellingCreateWordDto;
 import edu.jschool.enon.data.dto.ValidationErrorDto;
 import edu.jschool.enon.entity.Word;
 import edu.jschool.enon.service.WordService;
@@ -12,6 +14,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,5 +61,42 @@ public class WordController {
     @RequestMapping(value = "/addWithApi", method = GET)
     public String getFormWhereUserCanAddOnlySpelling(ModelMap modelMap){
         return "word/addWithApi";
+    }
+
+
+    @RequestMapping(value = "/addWithApi", method = POST)
+    public String translateAndAddWord (
+            @ModelAttribute("word") @Validated OnlySpellingCreateWordDto word,
+            BindingResult bindingResult, ModelMap modelMap){
+
+        if (bindingResult.hasErrors()){
+            List<ValidationErrorDto> errors = bindingResult
+                    .getFieldErrors()
+                    .stream()
+                    .map ((x) -> new ValidationErrorDto(x.getField(), x.getDefaultMessage()))
+                    .collect(Collectors.toList());
+            modelMap.addAttribute("validationsErrors", errors);
+            return "redirect:/addWithApi";
+        }
+
+        YaTranslator translator = new YaTranslator();
+        try {
+            String spelling = word.getSpelling();
+            String value = translator.translateEnToRu(spelling);
+
+            CreateWordDto the_word = new CreateWordDto();
+            the_word.setSpelling(spelling);
+            the_word.setValueInLanguage(value);
+
+            wordService.save(the_word);
+            return "redirect:/";
+        }
+        catch (IOException e) {
+            List<ValidationErrorDto> ers = new LinkedList<>();
+            ers.add(new ValidationErrorDto("valueInLanguage", e.getMessage()));
+            modelMap.addAttribute("validationsErrors", ers);
+            return "redirect:/add";
+        }
+
     }
 }

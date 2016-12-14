@@ -39,7 +39,7 @@
                                aria-expanded="false">Словарь <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/addText">Пополнить словами из текста, получив перевод</a></li>
-                                <li><a href="/add">Добавить пару: слово + перевод</a></li>
+                                <li><a href="/add">Добавить пару слово-перевод</a></li>
                                 <li><a href="/addWithApi">Добавить слово и получить его перевод</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#">Статистика</a></li>
