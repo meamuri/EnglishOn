@@ -1,5 +1,8 @@
 package edu.jschool.enon.component;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.web.client.RestTemplate;
+
 import javax.net.ssl.HttpsURLConnection;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,10 +12,13 @@ import java.net.URLEncoder;
 
 public class YaTranslator implements Translator{
 
+    private static final String
+            API = "trnsl.1.1.20161213T111003Z.d2c95c028db21968.0080fbb13e75a7d0717cc63849ee848bd95421e9";
+    private static final String
+            URL = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + API;
+
     public String translate(String word, String lang) throws IOException {
-        String myApiKey = "trnsl.1.1.20161213T111003Z.d2c95c028db21968.0080fbb13e75a7d0717cc63849ee848bd95421e9";
-        String urlStr = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + myApiKey;
-        URL urlObj = new URL(urlStr);
+        URL urlObj = new URL(URL);
         HttpsURLConnection connection = (HttpsURLConnection)urlObj.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
@@ -34,15 +40,13 @@ public class YaTranslator implements Translator{
 
     @Override
     public String translateEnToRu(String word) throws IOException{
-        String myApiKey = "trnsl.1.1.20161213T111003Z.d2c95c028db21968.0080fbb13e75a7d0717cc63849ee848bd95421e9";
-        String urlStr = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + myApiKey;
-        URL urlObj = new URL(urlStr);
+        URL urlObj = new URL(URL);
         HttpsURLConnection connection = (HttpsURLConnection)urlObj.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
         DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
         // &lang= направление перевода
-        dataOutputStream.writeBytes("text=" + URLEncoder.encode(word, "UTF-8") + "&lang=" + "ru");
+        dataOutputStream.writeBytes("text=" + URLEncoder.encode(word, "UTF-8") + "&lang=ru");
 
 
         InputStream response = connection.getInputStream();
@@ -51,5 +55,11 @@ public class YaTranslator implements Translator{
         int end = json.indexOf("]");
 
         return json.substring(start + 2, end - 1);
+    }
+
+    public String springApiTranslate(String word) {
+        RestTemplate rest = (new RestTemplateBuilder()).build();
+        QueryResult res = rest.getForObject(URL+"&"+word+"&lang=ru", QueryResult.class);
+        return res.toString();
     }
 }
