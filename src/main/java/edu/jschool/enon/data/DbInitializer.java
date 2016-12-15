@@ -1,5 +1,7 @@
 package edu.jschool.enon.data;
 
+import edu.jschool.enon.component.YaTranslator;
+import edu.jschool.enon.data.dto.CreateWordDto;
 import edu.jschool.enon.entity.Word;
 import edu.jschool.enon.repository.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +33,14 @@ public class DbInitializer {
         word2.setSpelling("Collection");
         word2.setValueInLanguage("Коллекция");
         wordRepository.save(word2);
+
+        YaTranslator t = new YaTranslator();
+        String[] set = {"Now", "We", "Will", "Have", "Many", "Element", "For", "High", "Quality", "Test"};
+        for (String s: set){
+            Word wrd = new Word();
+            wrd.setSpelling(s);
+            wrd.setValueInLanguage(t.springApiTranslate(s));
+            wordRepository.save(wrd);
+        }
     }
 }
