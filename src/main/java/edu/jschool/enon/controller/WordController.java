@@ -51,6 +51,14 @@ public class WordController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/training", method = GET)
+    public String goStartEducationMyFriend(ModelMap modelMap){
+        // здесь логика по выбору слов для тренировки!
+        List<Word> list =  wordService.getAll();
+        modelMap.addAttribute("words", list);
+        return "word/training";
+    }
+
     @RequestMapping(value = "/addWithApi", method = GET)
     public String getFormWhereUserCanAddOnlySpelling(ModelMap modelMap){
         return "word/addWithApi";

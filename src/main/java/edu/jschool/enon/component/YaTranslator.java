@@ -1,5 +1,6 @@
 package edu.jschool.enon.component;
 
+import edu.jschool.enon.data.dto.CreateWordDto;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.client.RestTemplate;
 
@@ -66,10 +67,16 @@ public class YaTranslator implements Translator{
         return res.getText()[0];
     }
 
-    public String springApiTranslateText(String text) {
+    public String[] springApiTranslateText(String text) {
         RestTemplate rest = (new RestTemplateBuilder()).build();
-        QueryResult res = new QueryResult();
-        //QueryResult res = rest.getForObject(FullURL+word+"&lang=ru", QueryResult.class);
-        return res.getText()[0];
+
+        String[] words = text.split(" |\r\n");
+        String query = URL + API_KEY;
+        for (String word: words){
+            query += "&text=" + word;
+        }
+        query += "&lang=ru";
+        QueryResult res = rest.getForObject(query, QueryResult.class);
+        return res.getText();
     }
 }
