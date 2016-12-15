@@ -15,8 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -53,8 +52,20 @@ public class WordController {
 
     @RequestMapping(value = "/training", method = GET)
     public String goStartEducationMyFriend(ModelMap modelMap){
-        // здесь логика по выбору слов для тренировки!
-        List<Word> list =  wordService.getAll();
+        List<Word> allWords =  wordService.getAll();
+        List<Word> list =  new LinkedList<>();
+
+        int length = allWords.size();
+        Random rand = new Random();
+
+        LinkedHashSet<Integer> setForCurrentTraining = new LinkedHashSet<>();
+        for (; setForCurrentTraining.size() != 4; ){
+            int val = rand.nextInt(length);
+            if (setForCurrentTraining.contains(val))
+                continue;
+            list.add(allWords.get(val));
+            setForCurrentTraining.add(val);
+        }
         modelMap.addAttribute("words", list);
         modelMap.addAttribute("word", list.get(0));
         return "word/training";
