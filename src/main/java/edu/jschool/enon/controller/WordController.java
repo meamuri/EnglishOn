@@ -39,6 +39,25 @@ public class WordController {
         return "word/addWord";
     }
 
+    @RequestMapping(value = "/edit", method = GET)
+    public String editWordsOfDictionary(ModelMap modelMap){
+        List<Word> list =  wordService.getAll();
+        modelMap.addAttribute("words", list);
+        if (list.size() > 4)
+            return "word/edit";
+        else
+            return "word/noDeleteEdit";
+    }
+
+
+    @RequestMapping(value = "/statistics", method = GET)
+    public String dearCanYouGiveMeStatistics(ModelMap modelMap){
+        List<Word> list =  wordService.getAll();
+        modelMap.addAttribute("words", list);
+        return "word/statistics";
+    }
+
+
     @RequestMapping(value = "/add", method = POST)
     public String addWord(@ModelAttribute("word") @Validated CreateWordDto word,
                           BindingResult bindingResult,
