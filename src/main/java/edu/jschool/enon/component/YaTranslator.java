@@ -67,16 +67,26 @@ public class YaTranslator implements Translator{
         return res.getText()[0];
     }
 
+    public QueryResult getJsonResOfTranslating(String word) {
+        RestTemplate rest = (new RestTemplateBuilder()).build();
+        return rest.getForObject(FullURL+word+"&lang=ru", QueryResult.class);
+    }
+
     public String[] springApiTranslateText(String text) {
+        String[] words = text.split(" |\r\n");
+        return springApiTranslateText(words);
+    }
+
+    public String[] springApiTranslateText(String[] text) {
         RestTemplate rest = (new RestTemplateBuilder()).build();
 
-        String[] words = text.split(" |\r\n");
         String query = URL + API_KEY;
-        for (String word: words){
+        for (String word: text){
             query += "&text=" + word;
         }
         query += "&lang=ru";
         QueryResult res = rest.getForObject(query, QueryResult.class);
         return res.getText();
     }
+
 }

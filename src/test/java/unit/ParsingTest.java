@@ -13,10 +13,33 @@ public class ParsingTest {
     public void setup() { translator = new YaTranslator(); }
 
     @Test
-    public void wordLengthTest() {
+    public void notNullResTest() {
         String res = translator.springApiTranslate("feel");
         Assert.notNull(res);
-        //Assert.notEmpty("message", translator.springApiTranslate("feel"));
+    }
+
+    @Test
+    public void countOfWordsTest() {
+        String[] words = {"this", "some", "little", "words"};
+        Assert.isTrue(translator.springApiTranslateText(words).length == 4);
+        String[] two = {"answer", "have to word"};
+        Assert.isTrue(translator.springApiTranslateText(two).length == 2);
+        String[] none = new String[0];
+        Assert.isTrue(translator.springApiTranslateText(none).length == 0);
+    }
+
+    @Test
+    public void splitWorkCorrectlyTest() {
+        String words = "this is some words";
+        Assert.isTrue(translator.springApiTranslateText(words).length == 4);
+        String two = "answer now have five words";
+        Assert.isTrue(translator.springApiTranslateText(two).length == 5);
+    }
+
+    @Test
+    public void codeResTest() {
+        String words = "Picture";
+        Assert.isTrue(translator.getJsonResOfTranslating(words).getCode() == 200);
 
     }
 }
