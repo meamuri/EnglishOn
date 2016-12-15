@@ -80,23 +80,20 @@ public class WordController {
         }
 
         YaTranslator translator = new YaTranslator();
-        try {
-            String spelling = word.getSpelling();
-            String value = translator.translateEnToRu(spelling);
 
-            CreateWordDto the_word = new CreateWordDto();
-            the_word.setSpelling(spelling);
-            the_word.setValueInLanguage(value);
+        String spelling = word.getSpelling();
+        String value = translator.springApiTranslate(spelling);
 
-            wordService.save(the_word);
-            return "redirect:/";
-        }
-        catch (IOException e) {
-            List<ValidationErrorDto> ers = new LinkedList<>();
-            ers.add(new ValidationErrorDto("valueInLanguage", e.getMessage()));
-            modelMap.addAttribute("validationsErrors", ers);
-            return "redirect:/add";
-        }
+        CreateWordDto the_word = new CreateWordDto();
+        the_word.setSpelling(spelling);
+        the_word.setValueInLanguage(value);
 
+        wordService.save(the_word);
+        return "redirect:/";
+//        List<ValidationErrorDto> ers = new LinkedList<>();
+//        ers.add(new ValidationErrorDto("valueInLanguage", e.getMessage()));
+//        modelMap.addAttribute("validationsErrors", ers);
+//        return "redirect:/add";
     }
+
 }
