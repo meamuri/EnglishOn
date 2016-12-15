@@ -15,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,18 +44,11 @@ public class WordController {
     public String addWord(@ModelAttribute("word") @Validated CreateWordDto word,
                           BindingResult bindingResult,
                           ModelMap modelMap){
-        if (!bindingResult.hasErrors()){
-            wordService.save(word);
-            return "redirect:/";
+        if (bindingResult.hasErrors()){
+            return redirectIfWeHaveErrors(bindingResult, modelMap, "add");
         }
-        // условие инвертировано: корокая и более понятная ветвь добавлена внутрь if
-        List<ValidationErrorDto> errors = bindingResult
-                .getFieldErrors()
-                .stream()
-                .map ((x) -> new ValidationErrorDto(x.getField(), x.getDefaultMessage()))
-                .collect(Collectors.toList());
-        modelMap.addAttribute("validationsErrors", errors);
-        return "redirect:/add";
+        wordService.save(word);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/addWithApi", method = GET)
@@ -71,13 +63,7 @@ public class WordController {
             BindingResult bindingResult, ModelMap modelMap){
 
         if (bindingResult.hasErrors()){
-            List<ValidationErrorDto> errors = bindingResult
-                    .getFieldErrors()
-                    .stream()
-                    .map ((x) -> new ValidationErrorDto(x.getField(), x.getDefaultMessage()))
-                    .collect(Collectors.toList());
-            modelMap.addAttribute("validationsErrors", errors);
-            return "redirect:/addWithApi";
+            return redirectIfWeHaveErrors(bindingResult, modelMap, "addWithApi");
         }
 
         YaTranslator translator = new YaTranslator();
@@ -101,8 +87,28 @@ public class WordController {
     @RequestMapping(value = "/checkText", method = POST)
     public String checkText(@ModelAttribute("text") @Validated TextContainer text,
                             BindingResult bindingResult, ModelMap modelMap) {
-        String s1 = text.getText();
-        return "redirect:/";
+        if (bindingResult.hasErrors()){
+            return redirectIfWeHaveErrors(bindingResult, modelMap, "checkText");
+        }
+        return addTetxtIfPossible(text.getText());
+    }
+
+    private String addTetxtIfPossible(String sourceText){
+        List<CreateWordDto> list = new LinkedList<>();
+        return "";
+    }
+
+    private String redirectIfWeHaveErrors(
+            BindingResult bindingResult,
+            ModelMap modelMap,
+            String page){
+        List<ValidationErrorDto> errors = bindingResult
+                .getFieldErrors()
+                .stream()
+                .map ((x) -> new ValidationErrorDto(x.getField(), x.getDefaultMessage()))
+                .collect(Collectors.toList());
+        modelMap.addAttribute("validationsErrors", errors);
+        return "redirect:/" + page;
     }
 
 }
