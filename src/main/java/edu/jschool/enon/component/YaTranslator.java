@@ -13,12 +13,12 @@ import java.net.URLEncoder;
 public class YaTranslator implements Translator{
 
     private static final String
-            API = "trnsl.1.1.20161213T111003Z.d2c95c028db21968.0080fbb13e75a7d0717cc63849ee848bd95421e9";
+            API_KEY = "trnsl.1.1.20161213T111003Z.d2c95c028db21968.0080fbb13e75a7d0717cc63849ee848bd95421e9";
     private static final String
-            URL = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + API;
+            URL = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=";
 
     public String translate(String word, String lang) throws IOException {
-        URL urlObj = new URL(URL);
+        URL urlObj = new URL(URL+API_KEY);
         HttpsURLConnection connection = (HttpsURLConnection)urlObj.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
@@ -40,7 +40,7 @@ public class YaTranslator implements Translator{
 
     @Override
     public String translateEnToRu(String word) throws IOException{
-        URL urlObj = new URL(URL);
+        URL urlObj = new URL(URL+API_KEY);
         HttpsURLConnection connection = (HttpsURLConnection)urlObj.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
@@ -57,9 +57,19 @@ public class YaTranslator implements Translator{
         return json.substring(start + 2, end - 1);
     }
 
+    private static final String
+        FullURL = URL + API_KEY + "&text=";
+
     public String springApiTranslate(String word) {
         RestTemplate rest = (new RestTemplateBuilder()).build();
-        QueryResult res = rest.getForObject(URL+"&text="+word+"&lang=ru", QueryResult.class);
+        QueryResult res = rest.getForObject(FullURL+word+"&lang=ru", QueryResult.class);
+        return res.getText()[0];
+    }
+
+    public String springApiTranslateText(String text) {
+        RestTemplate rest = (new RestTemplateBuilder()).build();
+        QueryResult res = new QueryResult();
+        //QueryResult res = rest.getForObject(FullURL+word+"&lang=ru", QueryResult.class);
         return res.getText()[0];
     }
 }

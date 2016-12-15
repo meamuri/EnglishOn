@@ -3,6 +3,7 @@ package edu.jschool.enon.controller;
 import edu.jschool.enon.component.YaTranslator;
 import edu.jschool.enon.data.dto.CreateWordDto;
 import edu.jschool.enon.data.dto.OnlySpellingCreateWordDto;
+import edu.jschool.enon.data.dto.TextContainer;
 import edu.jschool.enon.data.dto.ValidationErrorDto;
 import edu.jschool.enon.entity.Word;
 import edu.jschool.enon.service.WordService;
@@ -90,10 +91,18 @@ public class WordController {
 
         wordService.save(the_word);
         return "redirect:/";
-//        List<ValidationErrorDto> ers = new LinkedList<>();
-//        ers.add(new ValidationErrorDto("valueInLanguage", e.getMessage()));
-//        modelMap.addAttribute("validationsErrors", ers);
-//        return "redirect:/add";
+    }
+
+    @RequestMapping(value = "/addText", method = GET)
+    public String getFormForText(ModelMap modelMap){
+        return "word/addText";
+    }
+
+    @RequestMapping(value = "/checkText", method = POST)
+    public String checkText(@ModelAttribute("text") @Validated TextContainer text,
+                            BindingResult bindingResult, ModelMap modelMap) {
+        String s1 = text.getText();
+        return "redirect:/";
     }
 
 }
