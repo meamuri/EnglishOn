@@ -59,7 +59,7 @@ public class YaTranslator implements Translator{
 
     public String springApiTranslate(String word) {
         RestTemplate rest = (new RestTemplateBuilder()).build();
-        QueryResult res = rest.getForObject(URL+"&"+word+"&lang=ru", QueryResult.class);
-        return res.toString();
+        QueryResult res = rest.getForObject(URL+"&text="+word+"&lang=ru", QueryResult.class);
+        return res.getText()[0];
     }
 }

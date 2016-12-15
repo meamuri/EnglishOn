@@ -14,7 +14,8 @@ public class ParsingTest {
 
     @Test
     public void wordLengthTest() {
-        Assert.notNull(translator.springApiTranslate("feel"));
+        String res = translator.springApiTranslate("feel");
+        Assert.notNull(res);
         //Assert.notEmpty("message", translator.springApiTranslate("feel"));
 
     }
