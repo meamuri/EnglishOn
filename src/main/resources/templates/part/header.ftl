@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li id="main-page"><a href="/">Главная <span class="sr-only">(current)</span></a></li>
-                        <li id="training"><a href="#">Тренировка</a></li>
+                        <li id="training"><a href="/training">Тренировка</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">Словарь <span class="caret"></span></a>
@@ -42,7 +42,7 @@
                                 <li><a href="/add">Добавить пару слово-перевод</a></li>
                                 <li><a href="/addWithApi">Добавить слово и получить его перевод</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Статистика</a></li>
+                                <li><a href="/statistics">Статистика</a></li>
                             </ul>
                         </li>
                     </ul>

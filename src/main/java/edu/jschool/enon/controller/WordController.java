@@ -56,6 +56,7 @@ public class WordController {
         // здесь логика по выбору слов для тренировки!
         List<Word> list =  wordService.getAll();
         modelMap.addAttribute("words", list);
+        modelMap.addAttribute("word", list.get(0));
         return "word/training";
     }
 
