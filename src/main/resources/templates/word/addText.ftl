@@ -8,7 +8,7 @@
     <form action="/checkText" method="post" class="form-horizontal">
         <div class="form-group">
             <label>Текст для перевода на ваш язык:</label>
-            <textarea class="form-control" rows="8" id="comment" name="text"></textarea>
+            <textarea lang="en" class="form-control" rows="8" id="comment" name="text"></textarea>
         </div>
         <button class="btn btn-primary btn-1g" id="submit">Получить слова</button>
     </form>

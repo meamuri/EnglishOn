@@ -90,11 +90,21 @@ public class WordController {
         if (bindingResult.hasErrors()){
             return redirectIfWeHaveErrors(bindingResult, modelMap, "checkText");
         }
-        return addTetxtIfPossible(text.getText());
+
+        return "redirect:/" + addTextIfPossible(text.getText());
     }
 
-    private String addTetxtIfPossible(String sourceText){
+    private String addTextIfPossible(String sourceText){
+        YaTranslator translator = new YaTranslator();
+
         List<CreateWordDto> list = new LinkedList<>();
+        String[] words = sourceText.split(" |\r\n");
+        for (String word: words) {
+            list.add(new CreateWordDto(word, translator.springApiTranslate(word)));
+        }
+        for (CreateWordDto word: list){
+            wordService.save(word);
+        }
         return "";
     }
 
