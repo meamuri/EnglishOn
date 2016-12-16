@@ -126,6 +126,8 @@ public class WordController {
 
     @RequestMapping(value = "/training", method = GET)
     public String goStartEducationMyFriend(ModelMap modelMap){
+        if (modelMap.size() == 0)
+            modelMap.addAttribute("result", RoundResult.NONE);
         List<Word> allWords =  wordService.getAll();
         List<Word> list =  new LinkedList<>();
 
@@ -152,9 +154,17 @@ public class WordController {
             @PathVariable Long whichAnswer,
             @ModelAttribute("hack") @Validated ItIsHackButWhyNot hack,
             BindingResult bindingResult,
-            ModelMap modelMap){
-        wordService.incTrainingCount(hack.getId(), whichAnswer == hack.getVal());
-        return "redirect:/training";
+            ModelMap modelMap) {
+        if (bindingResult.hasErrors()){
+            return redirectIfWeHaveErrors(bindingResult, modelMap, "training");
+        }
+        boolean isTrueAnswer = whichAnswer == hack.getVal();
+        wordService.incTrainingCount(hack.getId(), isTrueAnswer);
+        RoundResult r = isTrueAnswer ? RoundResult.TRUE : RoundResult.FALSE;
+        modelMap.addAttribute("result", r);
+
+        //return "redirect:/training";
+        return goStartEducationMyFriend(modelMap);
     }
 
 }

@@ -4,9 +4,22 @@
 
 <h3>Давайте тренироваться! </h3>
 
+<#if result.name() == "TRUE">
+
+<button class="btn btn-success" type="button">
+    Ваш предыдущий ответ абсолютно верный <span class="badge">Блестяще!</span>
+</button>
+<#elseif  result.name() == "FALSE">
+<button class="btn btn-warning" type="button">
+    К сожалению, вы ответили неверно. Попробуйте снова
+</button>
+</#if>
+
 <div class="alert alert-success" role="alert">
     Слово для перевода: ${word.spelling}
 </div>
+
+<hr/>
 <p>Выберите один из вариантов ответа</p>
 <div class="container body-container"><div class="row"><div class="col-xs-8 cols-md-8">
 

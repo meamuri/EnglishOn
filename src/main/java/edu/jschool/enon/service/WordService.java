@@ -53,6 +53,8 @@ public class WordService {
         Word savedWord = wordRepository.findOne(id);
         savedWord.setSpelling(word.getSpelling());
         savedWord.setValueInLanguage(word.getValueInLanguage());
+//        savedWord.setTrainingTimes(0L);
+//        savedWord.setPositiveAnswers(0L);
         return wordRepository.save(savedWord);
     }
 
