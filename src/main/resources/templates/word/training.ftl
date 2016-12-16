@@ -16,10 +16,10 @@
     </#list>
     </ol>
 
-    <form action="/training" method="post" class="form-horizontal">
+    <form action="/training/${whichAnswerTrue + 1}" method="post" class="form-horizontal">
         <div class="form-group">
             <label>Ваш ответ [1..4]: </label>
-            <input type="number" class="form-control" name="val" min="1" max="4">
+            <input type="number" class="form-control" name="val" min="1" max="4" value="1">
         </div>
         <button class="btn btn-primary btn-1g" id="submit">Проверить</button>
     </form>

@@ -1,10 +1,7 @@
 package edu.jschool.enon.controller;
 
 import edu.jschool.enon.component.YaTranslator;
-import edu.jschool.enon.data.dto.CreateWordDto;
-import edu.jschool.enon.data.dto.OnlySpellingCreateWordDto;
-import edu.jschool.enon.data.dto.TextContainer;
-import edu.jschool.enon.data.dto.ValidationErrorDto;
+import edu.jschool.enon.data.dto.*;
 import edu.jschool.enon.entity.Word;
 import edu.jschool.enon.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,26 +52,6 @@ public class WordController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/training", method = GET)
-    public String goStartEducationMyFriend(ModelMap modelMap){
-        List<Word> allWords =  wordService.getAll();
-        List<Word> list =  new LinkedList<>();
-
-        int length = allWords.size();
-        Random rand = new Random();
-
-        LinkedHashSet<Integer> setForCurrentTraining = new LinkedHashSet<>();
-        for (; setForCurrentTraining.size() != 4; ){
-            int val = rand.nextInt(length);
-            if (setForCurrentTraining.contains(val))
-                continue;
-            list.add(allWords.get(val));
-            setForCurrentTraining.add(val);
-        }
-        modelMap.addAttribute("words", list);
-        modelMap.addAttribute("word", list.get(0));
-        return "word/training";
-    }
 
     @RequestMapping(value = "/addWithApi", method = GET)
     public String getFormWhereUserCanAddOnlySpelling(ModelMap modelMap){
@@ -144,6 +121,40 @@ public class WordController {
                 .collect(Collectors.toList());
         modelMap.addAttribute("validationsErrors", errors);
         return "redirect:/" + page;
+    }
+
+
+    @RequestMapping(value = "/training", method = GET)
+    public String goStartEducationMyFriend(ModelMap modelMap){
+        List<Word> allWords =  wordService.getAll();
+        List<Word> list =  new LinkedList<>();
+
+        int length = allWords.size();
+        Random rand = new Random();
+
+        LinkedHashSet<Integer> setForCurrentTraining = new LinkedHashSet<>();
+        for (; setForCurrentTraining.size() != 4; ){
+            int val = rand.nextInt(length);
+            if (setForCurrentTraining.contains(val))
+                continue;
+            list.add(allWords.get(val));
+            setForCurrentTraining.add(val);
+        }
+        modelMap.addAttribute("words", list);
+        int trueAnswer = rand.nextInt(4);
+        modelMap.addAttribute("word", list.get(trueAnswer));
+        modelMap.addAttribute("whichAnswerTrue", trueAnswer);
+        return "word/training";
+    }
+
+    @RequestMapping(value = "/training/{id}", method = POST)
+    public String checkAnswerAndGoTrainingAgain(
+            @PathVariable Long id,
+            @ModelAttribute("hack") @Validated ItIsHackButWhyNot hack,
+            BindingResult bindingResult,
+            ModelMap modelMap){
+
+        return "redirect:/training";
     }
 
 }
