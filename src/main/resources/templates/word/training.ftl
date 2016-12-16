@@ -3,7 +3,10 @@
 <hr/>
 
 <h3>Давайте тренироваться! </h3>
-<h4>Слово для перевода: <span class="label label-info">${word.spelling}</span></h4>
+
+<div class="alert alert-success" role="alert">
+    Слово для перевода: ${word.spelling}
+</div>
 <p>Выберите один из вариантов ответа</p>
 <div class="container body-container"><div class="row"><div class="col-xs-8 cols-md-8">
 
@@ -15,8 +18,8 @@
 
     <form action="/training" method="post" class="form-horizontal">
         <div class="form-group">
-            <label>Ваш ответ [0..4]: </label>
-            <input type="number" class="form-control" name="val">
+            <label>Ваш ответ [1..4]: </label>
+            <input type="number" class="form-control" name="val" min="1" max="4">
         </div>
         <button class="btn btn-primary btn-1g" id="submit">Проверить</button>
     </form>

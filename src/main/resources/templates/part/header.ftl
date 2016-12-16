@@ -43,8 +43,6 @@
                                 <li><a href="/addWithApi">Добавить слово и получить его перевод</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="/statistics">Статистика</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="/edit">Изменить набор</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -12,12 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Controller
@@ -38,17 +35,6 @@ public class WordController {
     public String getFormWhereUserCanAddWord(ModelMap modelMap){
         return "word/addWord";
     }
-
-    @RequestMapping(value = "/edit", method = GET)
-    public String editWordsOfDictionary(ModelMap modelMap){
-        List<Word> list =  wordService.getAll();
-        modelMap.addAttribute("words", list);
-        if (list.size() > 4)
-            return "word/edit";
-        else
-            return "word/noDeleteEdit";
-    }
-
 
     @RequestMapping(value = "/statistics", method = GET)
     public String dearCanYouGiveMeStatistics(ModelMap modelMap){

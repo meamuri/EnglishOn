@@ -5,16 +5,18 @@
     <tr>
         <th>Слово</th>
         <th>Перевод</th>
+        <th>Слово попадалось не тренировке:</th>
+        <th>Вы выбрали правильный перевод:</th>
+        <th>Процент правильных ответо</th>
     </tr>
-    <#list words as word>
+<#list words as word>
     <tr>
         <td>${word.spelling}</td>
         <td>${word.valueInLanguage}</td>
+        <td>${1}</td>
+        <td>${1}</td>
+        <td>${100}%</td>
     </tr>
-    </#list>
+</#list>
 </table>
-<div class="alert alert-success" role="alert">
-    <a href="/addWithApi" class="alert-link">Добавить еще слово</a><br/>
-    <a href="/addText" class="alert-link">или целый текст сразу</a>
-</div>
 <#include "/part/footer.ftl">
