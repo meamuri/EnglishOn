@@ -39,6 +39,26 @@ public class Word {
         this.valueInLanguage = valueInLanguage;
     }
 
+    private Long trainingTimes = 0L;
+
+    private Long positiveAnswers = 0L;
+
+    public Long getTrainingTimes() {
+        return trainingTimes;
+    }
+
+    public void setTrainingTimes(Long trainingTimes) {
+        this.trainingTimes = trainingTimes;
+    }
+
+    public Long getPositiveAnswers() {
+        return positiveAnswers;
+    }
+
+    public void setPositiveAnswers(Long positiveAnswers) {
+        this.positiveAnswers = positiveAnswers;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,7 +68,11 @@ public class Word {
 
         if (id != null ? !id.equals(word.id) : word.id != null) return false;
         if (spelling != null ? !spelling.equals(word.spelling) : word.spelling != null) return false;
-        return valueInLanguage != null ? valueInLanguage.equals(word.valueInLanguage) : word.valueInLanguage == null;
+        if (valueInLanguage != null ? !valueInLanguage.equals(word.valueInLanguage) : word.valueInLanguage != null)
+            return false;
+        if (trainingTimes != null ? !trainingTimes.equals(word.trainingTimes) : word.trainingTimes != null)
+            return false;
+        return positiveAnswers != null ? positiveAnswers.equals(word.positiveAnswers) : word.positiveAnswers == null;
     }
 
     @Override
@@ -56,6 +80,8 @@ public class Word {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (spelling != null ? spelling.hashCode() : 0);
         result = 31 * result + (valueInLanguage != null ? valueInLanguage.hashCode() : 0);
+        result = 31 * result + (trainingTimes != null ? trainingTimes.hashCode() : 0);
+        result = 31 * result + (positiveAnswers != null ? positiveAnswers.hashCode() : 0);
         return result;
     }
 
@@ -65,6 +91,16 @@ public class Word {
                 "id=" + id +
                 ", spelling='" + spelling + '\'' +
                 ", valueInLanguage='" + valueInLanguage + '\'' +
+                ", trainingTimes=" + trainingTimes +
+                ", positiveAnswers=" + positiveAnswers +
                 '}';
+    }
+
+    public void incCountOfPositiveTrainings(){
+        trainingTimes += 1;
+        positiveAnswers += 1;
+    }
+    public void incCountOfTrainings(){
+        trainingTimes += 1;
     }
 }

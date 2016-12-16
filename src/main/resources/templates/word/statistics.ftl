@@ -7,15 +7,14 @@
         <th>Перевод</th>
         <th>Слово попадалось не тренировке:</th>
         <th>Вы выбрали правильный перевод:</th>
-        <th>Процент правильных ответо</th>
+
     </tr>
 <#list words as word>
     <tr>
         <td>${word.spelling}</td>
         <td>${word.valueInLanguage}</td>
-        <td>${1}</td>
-        <td>${1}</td>
-        <td>${100}%</td>
+        <td>${word.trainingTimes}</td>
+        <td>${word.positiveAnswers}</td>
     </tr>
 </#list>
 </table>

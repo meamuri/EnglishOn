@@ -20,6 +20,7 @@
         <div class="form-group">
             <label>Ваш ответ [1..4]: </label>
             <input type="number" class="form-control" name="val" min="1" max="4" value="1">
+            <input type="hidden"  class="form-control" name="id" value="${word.id}">
         </div>
         <button class="btn btn-primary btn-1g" id="submit">Проверить</button>
     </form>

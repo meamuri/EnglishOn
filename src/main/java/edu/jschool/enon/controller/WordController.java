@@ -147,13 +147,13 @@ public class WordController {
         return "word/training";
     }
 
-    @RequestMapping(value = "/training/{id}", method = POST)
+    @RequestMapping(value = "/training/{whichAnswer}", method = POST)
     public String checkAnswerAndGoTrainingAgain(
-            @PathVariable Long id,
+            @PathVariable Long whichAnswer,
             @ModelAttribute("hack") @Validated ItIsHackButWhyNot hack,
             BindingResult bindingResult,
             ModelMap modelMap){
-
+        wordService.incTrainingCount(hack.getId(), whichAnswer == hack.getVal());
         return "redirect:/training";
     }
 

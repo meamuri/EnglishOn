@@ -27,6 +27,9 @@ public class WordService {
         Word theWord = new Word();
         theWord.setSpelling(word.getSpelling());
         theWord.setValueInLanguage(word.getValueInLanguage());
+
+        theWord.setTrainingTimes(0L);
+        theWord.setPositiveAnswers(0L);
         return wordRepository.save(theWord);
     }
 
@@ -50,6 +53,16 @@ public class WordService {
         Word savedWord = wordRepository.findOne(id);
         savedWord.setSpelling(word.getSpelling());
         savedWord.setValueInLanguage(word.getValueInLanguage());
+        return wordRepository.save(savedWord);
+    }
+
+    @Transactional
+    public Word incTrainingCount(Long id, boolean isTrueAnswer){
+        Word savedWord = wordRepository.findOne(id);
+        if (isTrueAnswer)
+            savedWord.incCountOfPositiveTrainings();
+        else
+            savedWord.incCountOfTrainings();
         return wordRepository.save(savedWord);
     }
 }
