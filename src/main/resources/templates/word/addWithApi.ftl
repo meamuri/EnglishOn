@@ -8,7 +8,7 @@
     <form action="/addWithApi" method="post" class="form-horizontal">
         <div class="form-group">
             <label>Написание слова на английском:</label>
-            <input type="text" class="form-control" name="spelling">
+            <input type="text" class="form-control" name="spelling" id="engField">
         </div>
         <button class="btn btn-primary btn-1g" id="submit">Добавить слово</button>
     </form>
@@ -17,4 +17,5 @@
 </div></div>
 <hr/>
 
+<#--<script type="text/javascript" src="/assets/custom/checkEngFields.js"></script>-->
 <#include "/part/footer.ftl">
